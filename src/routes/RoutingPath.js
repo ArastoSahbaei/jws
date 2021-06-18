@@ -2,9 +2,11 @@
 const dashBoardView = '/dashboard'
 const fileBrowserView = '/filebrowser'
 const signinView = '/signin'
+const apiView = '/apitest'
 
 export default {
 	dashBoardView,
 	fileBrowserView,
-	signinView
+	signinView,
+	apiView
 }

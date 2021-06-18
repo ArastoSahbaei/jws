@@ -2,14 +2,23 @@ import styled from 'styled-components'
 import logotype from '../../shared/images/logotype.png'
 import { useHistory } from 'react-router-dom'
 import RoutingPath from '../../routes/RoutingPath'
+import { UserContext } from '../../shared/provider/UserProvider'
+import { useContext } from 'react'
 
 export const SideBar = (props) => {
+	const [authenticatedUser, setAuthenticatedUser] = useContext(UserContext)
 	const history = useHistory()
 	const { drawerIsOpen, drawerHandler } = props
 
 	const navigate = (route) => {
 		history.push(route)
 		drawerHandler(false)
+	}
+
+	const displaySignOrAuth = () => {
+		return !authenticatedUser
+			? <Paragraph onClick={() => navigate(RoutingPath.signinView)}>Sign in</Paragraph>
+			: <Paragraph>{authenticatedUser}</Paragraph>
 	}
 
 	return (
@@ -19,12 +28,26 @@ export const SideBar = (props) => {
 				alt={'failed loading'}
 				style={{ width: 350, margin: 5 }} />
 
-			<p onClick={() => navigate(RoutingPath.dashBoardView)}>Dashboard</p>
-			<p onClick={() => navigate(RoutingPath.fileBrowserView)}>FileBrowser</p>
-			<p onClick={() => navigate(RoutingPath.signinView)}>Sign in</p>
+			<Paragraph onClick={() => navigate(RoutingPath.dashBoardView)}>Dashboard</Paragraph>
+			<Paragraph onClick={() => navigate(RoutingPath.fileBrowserView)}>FileBrowser</Paragraph>
+			<Paragraph onClick={() => navigate(RoutingPath.apiView)}>API Examples</Paragraph>
+			{displaySignOrAuth()}
+			<hr />
+			<Paragraph>Sign out</Paragraph>
 		</Drawer>
 	)
 }
+
+const Paragraph = styled.p`
+font-weight: 600;
+font-size: 1.4rem;
+cursor: pointer;
+transition: 0.3s;
+&:hover {
+	margin-left: 20px;
+	transition: 0.3s;
+}
+`
 
 const Drawer = styled.nav`
 	height: 100%;

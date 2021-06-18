@@ -32,5 +32,5 @@ const ToggleButton = styled.button`
 const ToggleButtonLine = styled.div`
 	width: 30px;
 	height: 2px;
-	background: black;
+	background: white;
 `
